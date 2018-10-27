@@ -27,7 +27,8 @@ def fstr(v: float):
 
 def basic(ip: str):
     endpoint = "http://{}:38491".format(ip)
-    s = jsonrpcclient.request(endpoint, "getStats")
+    res = jsonrpcclient.request(endpoint, "getStats")
+    s = res.data.result
 
     msg = LINE + "\n"
     msg += "{:^100}\n".format("QuarkChain Cluster Stats")
@@ -50,7 +51,8 @@ def basic(ip: str):
 
 def stats(ip: str):
     endpoint = "http://{}:38491".format(ip)
-    s = jsonrpcclient.request(endpoint, "getStats")
+    res = jsonrpcclient.request(endpoint, "getStats")
+    s = res.data.result
     return (
         now(),
         fstr(s["txCount60s"] / 60),
